@@ -2509,6 +2509,11 @@ class Backend(BackendInterface):
                 p12, password_buf, evp_pkey_ptr, x509_ptr, sk_x509_ptr
             )
 
+        # Workaround for
+        # https://github.com/libressl-portable/portable/issues/659
+        if self._lib.CRYPTOGRAPHY_IS_LIBRESSL:
+            self._consume_errors()
+
         if res == 0:
             self._consume_errors()
             raise ValueError("Invalid password or PKCS12 data")
