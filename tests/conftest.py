@@ -33,5 +33,5 @@ def pytest_runtest_setup(item):
 def backend(request):
     check_backend_support(openssl_backend, request)
     yield openssl_backend
-    errors = openssl_backend._consume_errors()
+    errors = openssl_backend._consume_errors_with_text()
     assert not errors
